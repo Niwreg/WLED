@@ -73,6 +73,10 @@
   #endif
 #endif
 
+#ifdef USERMOD_ROTARY_ENCODER_BRI
+    #include "../usermods/usermod_v2_rotary_encoder_bri/usermod_v2_rotary_encoder_bri.h"
+#endif
+
 #ifdef USERMOD_AUTO_SAVE
   #include "../usermods/usermod_v2_auto_save/usermod_v2_auto_save.h"
 #endif
