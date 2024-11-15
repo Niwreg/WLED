@@ -264,6 +264,10 @@ void registerUsermods()
   usermods.add(new RotaryEncoderUIUsermod()); // can use USERMOD_FOUR_LINE_DISPLAY
   #endif
 
+  #ifdef USERMOD_ROTARY_ENCODER_BRI
+  usermods.add(new RotaryEncoderBRIUsermod()); // can use USERMOD_FOUR_LINE_DISPLAY
+  #endif
+
   #ifdef USERMOD_AUTO_SAVE
   usermods.add(new AutoSaveUsermod());  // can use USERMOD_FOUR_LINE_DISPLAY
   #endif

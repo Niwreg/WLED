@@ -22,11 +22,11 @@
 //
 
 #ifndef ENCODER_DT_PIN
-#define ENCODER_DT_PIN 4
+#define ENCODER_DT_PIN 5
 #endif
 
 #ifndef ENCODER_CLK_PIN
-#define ENCODER_CLK_PIN 5
+#define ENCODER_CLK_PIN 4
 #endif
 
 
@@ -76,8 +76,8 @@ public:
     #ifndef USERMOD_ROTARY_ENCODER_GPIO
       #define USERMOD_ROTARY_ENCODER_GPIO INPUT_PULLUP
     #endif
-    pinMode(pinA, USERMOD_ROTARY_ENCODER_GPIO);
-    pinMode(pinB, USERMOD_ROTARY_ENCODER_GPIO);
+    pinMode(pinA, INPUT);
+    pinMode(pinB, INPUT);
 
     currentTime = millis();
     loopTime = currentTime;
@@ -125,12 +125,12 @@ public:
       { // A has gone from high to low
         if (Enc_B == HIGH)
         { // B is high so clockwise
-              changeBrightness(true);
+              changeBrightness(false);
         }
         else if (Enc_B == LOW)
         { // B is low so counter-clockwise
 
-              changeBrightness(false);
+              changeBrightness(true);
     
         }
       }
@@ -147,17 +147,14 @@ public:
   }
 
   void changeBrightness(bool increase) {
-#ifdef USERMOD_FOUR_LINE_DISPLAY
-    if (display && display->wakeDisplay()) {
-      // Throw away wake up input
+    if (offMode) {
       return;
     }
-#endif
     if (increase) {
       bri = (bri + fadeAmount <= 255) ? (bri + fadeAmount) : 255;
     }
     else {
-      bri = (bri - fadeAmount >= 0) ? (bri - fadeAmount) : 0;
+      bri = (bri - fadeAmount >= 0) ? (bri - fadeAmount) : 1;
     }
     lampUdated();
   }
@@ -269,7 +266,7 @@ public:
 };
 
 // strings to reduce flash memory usage (used more than twice)
-const char RotaryEncoderBRIUsermod::_name[]     PROGMEM = "Rotary-Encoder";
+const char RotaryEncoderBRIUsermod::_name[]     PROGMEM = "Rotary-Encoder-Bri";
 const char RotaryEncoderBRIUsermod::_enabled[]  PROGMEM = "enabled";
 const char RotaryEncoderBRIUsermod::_DT_pin[]   PROGMEM = "DT-pin";
 const char RotaryEncoderBRIUsermod::_CLK_pin[]  PROGMEM = "CLK-pin";
